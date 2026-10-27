@@ -46,7 +46,27 @@ Then visit **`http://localhost:8000`** in your browser.
 
 ---
 
-## 🌐 Free Deployment Options
+## 🌐 Deploying to Vercel (Free 24/7 Hosting with CDN)
 
-- **Vercel / Netlify**: Drag and drop this folder onto [Netlify Drop](https://app.netlify.com/drop) or import to [Vercel](https://vercel.com) for instant free hosting with a custom domain.
-- **GitHub Pages**: Push this directory to a GitHub repository, go to Settings -> Pages, and enable GitHub Pages.
+This repository is already pre-configured with `vercel.json` optimized for high-performance video streaming with range-byte caching.
+
+### Step 1: Create a GitHub Repository
+1. Go to [github.com/new](https://github.com/new)
+2. Set the repository name to `bhuvana-video-portfolio` (leave it public or private)
+3. Leave "Add a README" **unchecked**
+4. Click **Create repository**
+
+### Step 2: Push Your Code
+Open PowerShell and run:
+```powershell
+cd C:\Users\bhuva\.gemini\antigravity\scratch\bhuvana-video-portfolio
+git remote add origin https://github.com/<YOUR-GITHUB-USERNAME>/bhuvana-video-portfolio.git
+git branch -M main
+git push -u origin main
+```
+
+### Step 3: Deploy on Vercel
+1. Go to [vercel.com/new](https://vercel.com/new) and log in with your GitHub account.
+2. Under "Import Git Repository", click **Import** next to `bhuvana-video-portfolio`.
+3. Keep default settings (Framework Preset: Other) and click **Deploy**.
+4. In ~20 seconds, your portfolio will be live at `https://bhuvana-video-portfolio.vercel.app`!
