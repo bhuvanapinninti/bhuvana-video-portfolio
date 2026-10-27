@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhuvana Pinninti | Video Editor & Visual Storyteller</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              accent: '#FF3366',
+              amber: '#FFB800',
+              cyan: '#00F0FF',
+              dark: '#0A0A0D',
+              card: '#121217',
+              border: '#1F1F28'
+            }
+          },
+          animation: {
+            'glow-pulse': 'glow 3s infinite alternate',
+          },
+          keyframes: {
+            glow: {
+              '0%': { opacity: '0.4', filter: 'blur(40px)' },
+              '100%': { opacity: '0.8', filter: 'blur(60px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0D;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #232330;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FF3366;
+    }
+
+    /* Ambient noise background texture */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    
+    .gradient-border {
+      position: relative;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255, 51, 102, 0.4), rgba(0, 240, 255, 0.1), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-[#0A0A0D] text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-brand-accent selection:text-white">
+
+  <!-- Ambient Glow Blobs -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-brand-accent/15 rounded-full filter blur-[120px] animate-glow-pulse"></div>
+    <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-brand-cyan/10 rounded-full filter blur-[130px]"></div>
+    <div class="absolute -bottom-20 left-1/3 w-[600px] h-[600px] bg-purple-600/10 rounded-full filter blur-[140px]"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col min-h-screen">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0A0A0D]/75 border-b border-brand-border/60 transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-accent to-purple-600 flex items-center justify-center font-syne font-black text-xl text-white shadow-lg shadow-brand-accent/20 group-hover:scale-105 transition-transform">
+            BP
+          </div>
+          <div>
+            <span class="font-syne font-bold text-lg tracking-tight block text-white group-hover:text-brand-accent transition-colors">Bhuvana Pinninti</span>
+            <span class="text-[11px] text-slate-400 font-medium tracking-widest uppercase">Video Editor & Colorist</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav Items -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <a href="#showreel" class="hover:text-brand-accent transition-colors">Showreel</a>
+          <a href="#projects" class="hover:text-brand-accent transition-colors">Featured Work</a>
+          <a href="#color-grading" class="hover:text-brand-accent transition-colors">Color Grading</a>
+          <a href="#skills" class="hover:text-brand-accent transition-colors">Skills & Gear</a>
+          <a href="#about" class="hover:text-brand-accent transition-colors">About</a>
+          <a href="resume.html" target="_blank" class="hover:text-brand-accent transition-colors flex items-center gap-1.5 text-pink-400 font-semibold">
+            <span>Resume</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          </a>
+          <a href="#contact" class="hover:text-brand-accent transition-colors">Contact</a>
+        </nav>
+
+        <!-- CTA & Status -->
+        <div class="hidden sm:flex items-center gap-4">
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            Available for Projects
+          </div>
+          <a href="#contact" class="px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-sm hover:bg-slate-200 transition-all hover:shadow-lg hover:shadow-white/10 active:scale-95 flex items-center gap-2">
+            <span>Book a Project</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white p-2">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobileMenu" class="hidden md:hidden bg-[#121217] border-b border-brand-border px-6 py-5 space-y-4">
+        <a href="#showreel" class="block text-slate-300 hover:text-brand-accent py-1">Showreel</a>
+        <a href="#projects" class="block text-slate-300 hover:text-brand-accent py-1">Featured Work</a>
+        <a href="#color-grading" class="block text-slate-300 hover:text-brand-accent py-1">Color Grading</a>
+        <a href="#skills" class="block text-slate-300 hover:text-brand-accent py-1">Skills & Gear</a>
+        <a href="#about" class="block text-slate-300 hover:text-brand-accent py-1">About</a>
+        <a href="resume.html" target="_blank" class="block text-pink-400 font-semibold hover:text-brand-accent py-1 flex items-center justify-between">
+          <span>Resume</span>
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+        </a>
+        <a href="#contact" class="block text-slate-300 hover:text-brand-accent py-1">Contact</a>
+        <div class="pt-2">
+          <a href="#contact" class="w-full text-center block px-4 py-2.5 rounded-xl bg-brand-accent text-white font-semibold text-sm">
+            Book a Project
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow">
+
+      <!-- HERO SECTION -->
+      <section class="relative pt-20 pb-28 md:pt-28 md:pb-36 bg-grid">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="max-w-4xl mx-auto text-center space-y-8">
+
+            <!-- Badges -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-card/90 border border-brand-border shadow-xl backdrop-blur-sm">
+              <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
+              <span class="text-xs uppercase tracking-wider font-semibold text-slate-300">Commercial &bull; YouTube &bull; Narrative &bull; Reels</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-syne font-extrabold tracking-tight leading-[1.08] text-white">
+              Crafting stories with <br class="hidden sm:inline">
+              <span class="bg-gradient-to-r from-brand-accent via-purple-400 to-brand-cyan bg-clip-text text-transparent">
+                rhythm, emotion & punch.
+              </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg md:text-xl text-slate-400 font-normal max-w-2xl mx-auto leading-relaxed">
+              Hi, I'm <span class="text-white font-medium">Bhuvana Pinninti</span>. I help creators, brands, and directors turn raw footage into cinematic experiences that stop the scroll and captivate audiences.
+            </p>
+
+            <!-- Actions -->
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+              <a href="#showreel" class="group px-7 py-4 rounded-xl bg-gradient-to-r from-brand-accent to-pink-600 hover:from-pink-600 hover:to-brand-accent text-white font-bold text-base shadow-xl shadow-brand-accent/25 hover:shadow-brand-accent/40 transition-all flex items-center gap-3 transform hover:-translate-y-0.5 active:translate-y-0">
+                <i data-lucide="play-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                <span>Watch 2026 Showreel</span>
+              </a>
+              <a href="#projects" class="px-7 py-4 rounded-xl bg-brand-card hover:bg-slate-800/80 text-slate-200 border border-brand-border font-semibold text-base transition-all flex items-center gap-2 hover:border-slate-600">
+                <span>Explore Works</span>
+                <i data-lucide="arrow-down" class="w-4 h-4 text-slate-400"></i>
+              </a>
+            </div>
+
+            <!-- Metrics bar -->
+            <div class="grid grid-cols-3 gap-6 pt-12 border-t border-brand-border/60 max-w-2xl mx-auto">
+              <div>
+                <p class="font-syne text-3xl md:text-4xl font-extrabold text-white">25<span class="text-brand-accent">+</span></p>
+                <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Projects Delivered</p>
+              </div>
+              <div>
+                <p class="font-syne text-3xl md:text-4xl font-extrabold text-white">1<span class="text-brand-amber">+</span></p>
+                <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Year Experience</p>
+              </div>
+              <div>
+                <p class="font-syne text-3xl md:text-4xl font-extrabold text-white">99<span class="text-emerald-400">%</span></p>
+                <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">On-Time Delivery</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SHOWREEL SECTION -->
+      <section id="showreel" class="py-20 bg-brand-card/50 border-y border-brand-border/60 relative">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="text-center max-w-xl mx-auto mb-12">
+            <span class="text-xs uppercase font-bold tracking-widest text-brand-accent block mb-2">The Highlight Reel</span>
+            <h2 class="text-3xl md:text-5xl font-syne font-bold text-white tracking-tight">2026 Official Reel</h2>
+            <p class="text-slate-400 mt-3 text-sm md:text-base">A dynamic showcase of pacing, sound design, rhythmic cuts, and visual storytelling.</p>
+          </div>
+
+          <!-- Video Player Showcase Container -->
+          <div class="max-w-5xl mx-auto rounded-2xl overflow-hidden bg-brand-card border border-brand-border/80 shadow-2xl relative group">
+            <div class="aspect-video w-full relative bg-slate-950 flex items-center justify-center overflow-hidden">
+              <!-- Video Background Loop -->
+              <video 
+                id="heroVideoPreview"
+                src="videos/portfolio.mp4#t=0.5" 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata"
+                class="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700 ease-out"
+              ></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 pointer-events-none"></div>
+
+              <!-- Center Play Trigger -->
+              <button 
+                onclick="openVideoModal('videos/portfolio.mp4', 'Bhuvana Pinninti — 2026 Official Portfolio Reel')"
+                class="absolute z-20 flex flex-col items-center gap-4 group/btn"
+              >
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-brand-accent/90 group-hover/btn:bg-brand-accent text-white flex items-center justify-center shadow-2xl shadow-brand-accent/50 group-hover/btn:scale-110 transition-all duration-300">
+                  <i data-lucide="play" class="w-8 h-8 md:w-10 md:h-10 fill-white translate-x-0.5"></i>
+                </div>
+                <span class="px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs font-semibold text-slate-200 uppercase tracking-widest flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+                  Play Reel &bull; 00:31 HD
+                </span>
+              </button>
+
+              <!-- Bottom Bar Meta inside Poster -->
+              <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between text-xs text-slate-300 pointer-events-none">
+                <div class="flex items-center gap-3">
+                  <span class="px-2.5 py-1 rounded bg-brand-accent/30 text-pink-300 font-bold uppercase tracking-wider text-[10px]">720p HD</span>
+                  <span>Audio Mastered &bull; Original Cut</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-brand-cyan"></i>
+                  <span>Premiere Pro &bull; DaVinci Resolve</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED WORK / PROJECTS SECTION -->
+      <section id="projects" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <span class="text-xs uppercase font-bold tracking-widest text-brand-cyan block mb-2">Original Video Works</span>
+            <h2 class="text-3xl md:text-5xl font-syne font-bold text-white tracking-tight">Recent Projects & Edits</h2>
+            <p class="text-slate-400 mt-2 text-sm md:text-base">Hover over any card to preview. Click to play with sound and full controls.</p>
+          </div>
+
+          <!-- Category Filter Tabs -->
+          <div class="flex flex-wrap gap-2 p-1.5 rounded-xl bg-brand-card border border-brand-border" id="filterContainer">
+            <button class="filter-btn active px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all bg-brand-accent text-white shadow-md" data-category="all">All Edits (3)</button>
+            <button class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold tracking-wide text-slate-400 hover:text-white transition-all" data-category="shorts">Shorts & Viral Reels</button>
+            <button class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold tracking-wide text-slate-400 hover:text-white transition-all" data-category="dynamic">Cinematic Flow</button>
+          </div>
+        </div>
+
+        <!-- Project Cards Grid (3 Unique Original Edits) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="projectsGrid">
+
+          <!-- Video 1: Editing Reel (Vertical 9:16) -->
+          <div class="project-card group rounded-2xl bg-brand-card border border-brand-border hover:border-brand-accent/50 transition-all duration-300 overflow-hidden flex flex-col" data-category="shorts">
+            <div class="aspect-[9/14] sm:aspect-[9/16] max-h-[460px] relative overflow-hidden bg-slate-950 cursor-pointer" onclick="openVideoModal('videos/editing.mp4', 'Dynamic Hook & Speed Ramping Edit')">
+              <video 
+                src="videos/editing.mp4#t=0.5" 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata"
+                class="video-preview-player w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+              ></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 group-hover:from-black/60 transition-colors flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-brand-accent/90 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-110 shadow-lg shadow-brand-accent/40 transition-all">
+                  <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
+                </div>
+              </div>
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-sm text-[10px] font-bold text-brand-amber uppercase tracking-wider border border-brand-amber/30">
+                Shorts / Reel
+              </span>
+              <span class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-[10px] text-slate-200 font-mono">
+                00:21 &bull; 9:16
+              </span>
+            </div>
+            <div class="p-5 flex-grow flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-xs text-slate-400 mb-1.5">
+                  <span class="text-brand-amber font-medium">Vertical Social Edit</span>
+                  <span>Premiere Pro</span>
+                </div>
+                <h3 class="text-base font-syne font-bold text-white group-hover:text-brand-accent transition-colors">Dynamic Hook & Speed Ramping</h3>
+                <p class="text-slate-400 text-xs mt-1.5 line-clamp-2 leading-relaxed">Snappy cuts, beat-synced motion design, and high-retention visual hooks tailored for vertical platforms.</p>
+              </div>
+              <div class="pt-3 mt-3 border-t border-brand-border/60 flex items-center justify-between text-xs">
+                <span class="text-slate-300 font-medium">Role: Social Video Editor</span>
+                <span class="text-brand-cyan font-mono">editing.mp4</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video 2: Edit Video (Vertical 9:16) -->
+          <div class="project-card group rounded-2xl bg-brand-card border border-brand-border hover:border-brand-accent/50 transition-all duration-300 overflow-hidden flex flex-col" data-category="shorts">
+            <div class="aspect-[9/14] sm:aspect-[9/16] max-h-[460px] relative overflow-hidden bg-slate-950 cursor-pointer" onclick="openVideoModal('videos/edit_video.mp4', 'Narrative Hook & Viral Social Cut')">
+              <video 
+                src="videos/edit_video.mp4#t=0.5" 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata"
+                class="video-preview-player w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+              ></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 group-hover:from-black/60 transition-colors flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-brand-accent/90 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-110 shadow-lg shadow-brand-accent/40 transition-all">
+                  <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
+                </div>
+              </div>
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-sm text-[10px] font-bold text-brand-cyan uppercase tracking-wider border border-brand-cyan/30">
+                Shorts / Reel
+              </span>
+              <span class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-[10px] text-slate-200 font-mono">
+                00:33 &bull; 9:16
+              </span>
+            </div>
+            <div class="p-5 flex-grow flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-xs text-slate-400 mb-1.5">
+                  <span class="text-brand-cyan font-medium">Retention Architecture</span>
+                  <span>After Effects &bull; CapCut</span>
+                </div>
+                <h3 class="text-base font-syne font-bold text-white group-hover:text-brand-accent transition-colors">Narrative Hook & Viral Social Cut</h3>
+                <p class="text-slate-400 text-xs mt-1.5 line-clamp-2 leading-relaxed">Seamless narrative progression engineered to maintain high average view duration (AVD) and engagement.</p>
+              </div>
+              <div class="pt-3 mt-3 border-t border-brand-border/60 flex items-center justify-between text-xs">
+                <span class="text-slate-300 font-medium">Role: Pacing & Motion FX</span>
+                <span class="text-brand-cyan font-mono">edit_video.mp4</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video 3: Video 1 (Vertical 9:16) -->
+          <div class="project-card group rounded-2xl bg-brand-card border border-brand-border hover:border-brand-accent/50 transition-all duration-300 overflow-hidden flex flex-col" data-category="dynamic">
+            <div class="aspect-[9/14] sm:aspect-[9/16] max-h-[460px] relative overflow-hidden bg-slate-950 cursor-pointer" onclick="openVideoModal('videos/Video1.mp4', 'Cinematic Motion & Rhythm Reel')">
+              <video 
+                src="videos/Video1.mp4#t=0.5" 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata"
+                class="video-preview-player w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+              ></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 group-hover:from-black/60 transition-colors flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-brand-accent/90 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-110 shadow-lg shadow-brand-accent/40 transition-all">
+                  <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
+                </div>
+              </div>
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-sm text-[10px] font-bold text-purple-400 uppercase tracking-wider border border-purple-400/30">
+                Cinematic Cut
+              </span>
+              <span class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-[10px] text-slate-200 font-mono">
+                00:27 &bull; 9:16
+              </span>
+            </div>
+            <div class="p-5 flex-grow flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-xs text-slate-400 mb-1.5">
+                  <span class="text-purple-400 font-medium">Cinematic Rhythm</span>
+                  <span>DaVinci Resolve</span>
+                </div>
+                <h3 class="text-base font-syne font-bold text-white group-hover:text-brand-accent transition-colors">Cinematic Motion & Flow</h3>
+                <p class="text-slate-400 text-xs mt-1.5 line-clamp-2 leading-relaxed">Stylized color grading, micro-transitions, and audio soundscape designed to draw the viewer into the scene.</p>
+              </div>
+              <div class="pt-3 mt-3 border-t border-brand-border/60 flex items-center justify-between text-xs">
+                <span class="text-slate-300 font-medium">Role: Colorist & Lead Editor</span>
+                <span class="text-brand-cyan font-mono">Video1.mp4</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- COLOR GRADING BEFORE / AFTER INTERACTIVE SLIDER -->
+      <section id="color-grading" class="py-24 bg-brand-card/40 border-y border-brand-border/60">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="max-w-3xl mx-auto text-center mb-12">
+            <span class="text-xs uppercase font-bold tracking-widest text-brand-amber block mb-2">DaVinci Resolve Mastery</span>
+            <h2 class="text-3xl md:text-5xl font-syne font-bold text-white tracking-tight">Color Grading & Finishing</h2>
+            <p class="text-slate-400 mt-3 text-sm md:text-base">
+              Drag the interactive slider below to see the transformation from flat LOG footage to rich, stylized cinematic film tone with custom LUTs, skin-tone isolation, and halation.
+            </p>
+          </div>
+
+          <!-- Interactive Split Slider Container -->
+          <div class="max-w-4xl mx-auto">
+            <div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-brand-border shadow-2xl select-none group" id="sliderContainer">
+              
+              <!-- "After" Image (Color Graded) - Base Layer -->
+              <img 
+                src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1600&q=80" 
+                alt="After Color Grading" 
+                class="absolute inset-0 w-full h-full object-cover filter contrast-125 saturate-125"
+              />
+              <span class="absolute top-4 right-4 z-10 px-3 py-1 rounded-md bg-emerald-500/80 backdrop-blur-md text-xs font-bold text-white uppercase tracking-wider shadow">
+                Graded & Finished
+              </span>
+
+              <!-- "Before" Image (LOG / Flat) - Clipped Top Layer -->
+              <div id="beforeImageWrapper" class="absolute inset-0 overflow-hidden w-1/2">
+                <img 
+                  src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1600&q=80" 
+                  alt="Before Color Grading (LOG)" 
+                  class="absolute inset-0 w-full h-full object-cover filter brightness-125 contrast-50 saturate-50"
+                  style="width: 100%; max-width: none;"
+                  id="beforeImage"
+                />
+                <span class="absolute top-4 left-4 z-10 px-3 py-1 rounded-md bg-black/80 backdrop-blur-md text-xs font-bold text-slate-300 uppercase tracking-wider shadow">
+                  Raw LOG Profile
+                </span>
+              </div>
+
+              <!-- Draggable Divider Line & Handle -->
+              <div id="sliderHandle" class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize left-1/2 -ml-0.5 z-20 flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.8)]">
+                <div class="w-10 h-10 -ml-0 rounded-full bg-white text-black flex items-center justify-center shadow-xl border-2 border-slate-900 group-hover:scale-110 transition-transform">
+                  <i data-lucide="chevrons-left-right" class="w-5 h-5"></i>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Hint text -->
+            <div class="flex items-center justify-between text-xs text-slate-500 mt-4 px-2">
+              <span class="flex items-center gap-1.5"><i data-lucide="hand" class="w-3.5 h-3.5"></i> Click or drag slider left/right</span>
+              <span>ACES Color Managed &bull; Film Halation & Grain Applied</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS, WORKFLOW & SOFTWARE SECTION -->
+      <section id="skills" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <div class="lg:col-span-5 space-y-6">
+            <span class="text-xs uppercase font-bold tracking-widest text-brand-accent">Technical Arsenal</span>
+            <h2 class="text-3xl md:text-5xl font-syne font-bold text-white tracking-tight">Tools & Specialized Capabilities</h2>
+            <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+              Every cut is calculated to maximize emotional resonance, pacing, and viewer retention. From offline assembly to final color mastering and sound mix, here is the toolset I deploy.
+            </p>
+
+            <div class="space-y-4 pt-2">
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-card border border-brand-border">
+                <div class="w-10 h-10 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent shrink-0">
+                  <i data-lucide="zap" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h4 class="font-syne font-bold text-white text-base">Rhythm & Retention Architecture</h4>
+                  <p class="text-xs text-slate-400 mt-1">Specialized in pacing graphs, hook psychology, jump-cut smoothing, and micro-story arcs that elevate watch time.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-card border border-brand-border">
+                <div class="w-10 h-10 rounded-lg bg-brand-cyan/10 border border-brand-cyan/20 flex items-center justify-center text-brand-cyan shrink-0">
+                  <i data-lucide="volume-2" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h4 class="font-syne font-bold text-white text-base">Sound Design & Audio Mastering</h4>
+                  <p class="text-xs text-slate-400 mt-1">Layered foley, risers, whooshes, stereo panning, dialogue noise reduction (Izotope RX), and broadcast loudness mastering (-14 LUFS).</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-card border border-brand-border">
+                <div class="w-10 h-10 rounded-lg bg-brand-amber/10 border border-brand-amber/20 flex items-center justify-center text-brand-amber shrink-0">
+                  <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h4 class="font-syne font-bold text-white text-base">Motion Graphics & Dynamic Titles</h4>
+                  <p class="text-xs text-slate-400 mt-1">Custom kinetic typography, 3D camera tracking, lower thirds, UI mockups, and VFX screen replacements in After Effects.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Software Proficiency Cards -->
+          <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            
+            <!-- Software 1 -->
+            <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-slate-700 transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-purple-900/30 border border-purple-600/30 flex items-center justify-center font-bold text-purple-400 text-lg mb-4">
+                  Pr
+                </div>
+                <h3 class="font-syne font-bold text-white text-lg">Premiere Pro</h3>
+                <p class="text-xs text-slate-400 mt-1">Primary NLE, multicam cutting, proxy workflows</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-brand-border/60">
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>Proficiency</span>
+                  <span class="text-white font-bold">98%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="w-[98%] h-full bg-brand-accent rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Software 2 -->
+            <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-slate-700 transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-purple-950/40 border border-indigo-600/30 flex items-center justify-center font-bold text-indigo-400 text-lg mb-4">
+                  Ae
+                </div>
+                <h3 class="font-syne font-bold text-white text-lg">After Effects</h3>
+                <p class="text-xs text-slate-400 mt-1">Motion design, rotoscoping, camera tracking</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-brand-border/60">
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>Proficiency</span>
+                  <span class="text-white font-bold">92%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="w-[92%] h-full bg-indigo-500 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Software 3 -->
+            <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-slate-700 transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-amber-950/30 border border-amber-600/30 flex items-center justify-center font-bold text-amber-400 text-lg mb-4">
+                  Dv
+                </div>
+                <h3 class="font-syne font-bold text-white text-lg">DaVinci Resolve</h3>
+                <p class="text-xs text-slate-400 mt-1">Color science, ACES grading, Fairlight audio</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-brand-border/60">
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>Proficiency</span>
+                  <span class="text-white font-bold">95%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="w-[95%] h-full bg-brand-amber rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Software 4 -->
+            <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-slate-700 transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-cyan-950/30 border border-cyan-600/30 flex items-center justify-center font-bold text-cyan-400 text-lg mb-4">
+                  Au
+                </div>
+                <h3 class="font-syne font-bold text-white text-lg">Audition / RX</h3>
+                <p class="text-xs text-slate-400 mt-1">Audio restoration, spectral repair & mix</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-brand-border/60">
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>Proficiency</span>
+                  <span class="text-white font-bold">88%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="w-[88%] h-full bg-brand-cyan rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Software 5 -->
+            <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-slate-700 transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-emerald-950/30 border border-emerald-600/30 flex items-center justify-center font-bold text-emerald-400 text-lg mb-4">
+                  Cc
+                </div>
+                <h3 class="font-syne font-bold text-white text-lg">CapCut Pro</h3>
+                <p class="text-xs text-slate-400 mt-1">Rapid social vertical edits & auto-captions</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-brand-border/60">
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>Proficiency</span>
+                  <span class="text-white font-bold">96%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="w-[96%] h-full bg-emerald-400 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Software 6 -->
+            <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-slate-700 transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-pink-950/30 border border-pink-600/30 flex items-center justify-center font-bold text-pink-400 text-lg mb-4">
+                  F3
+                </div>
+                <h3 class="font-syne font-bold text-white text-lg">Frame.io</h3>
+                <p class="text-xs text-slate-400 mt-1">Client reviews, timecoded notes, revisions</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-brand-border/60">
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>Proficiency</span>
+                  <span class="text-white font-bold">100%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="w-[100%] h-full bg-pink-500 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ABOUT ME SECTION -->
+      <section id="about" class="py-24 bg-brand-card/30 border-t border-brand-border/60">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Interactive Video Editing Suite Console & Timeline Mockup -->
+            <div class="lg:col-span-5 relative">
+              <div class="rounded-2xl overflow-hidden border border-brand-border bg-[#0E0E13] shadow-2xl relative group">
+                
+                <!-- NLE Window Header -->
+                <div class="px-4 py-3 bg-[#15151C] border-b border-brand-border flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                    <span class="text-[11px] font-mono text-slate-400 ml-2 truncate">Timeline // Sequence_Master.prproj</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/50 border border-white/5 font-mono text-[10px] text-emerald-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span>24.00 fps</span>
+                  </div>
+                </div>
+
+                <!-- Program Monitor / Professional Color Scopes Suite -->
+                <div class="relative aspect-video bg-[#06060A] overflow-hidden border-b border-brand-border/60 flex items-center justify-center">
+                  <!-- Live Interactive Scope Canvas -->
+                  <canvas id="scopesCanvas" class="w-full h-full block"></canvas>
+
+                  <!-- Top Status Bar inside Monitor -->
+                  <div class="absolute top-2.5 left-3 right-3 flex items-center justify-between text-[10px] font-mono pointer-events-none">
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded bg-black/80 border border-white/10 text-brand-cyan">
+                        PARADE (R G B)
+                      </span>
+                      <span class="px-2 py-0.5 rounded bg-black/80 border border-white/10 text-slate-300 hidden sm:inline">
+                        IRE: 0 - 100
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/80 border border-white/10 text-emerald-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span>ACEScct Rec.709</span>
+                    </div>
+                  </div>
+
+                  <!-- Timecode Overlay -->
+                  <div class="absolute bottom-2.5 left-3 px-2.5 py-1 rounded bg-black/85 backdrop-blur-sm border border-white/10 text-[11px] font-mono text-white flex items-center gap-2 pointer-events-none">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                    <span class="text-rose-400 font-bold">LIVE SCOPE</span>
+                    <span id="nleTimecode" class="text-slate-200">00:01:24:18</span>
+                  </div>
+
+                  <!-- Color Nodes Badge -->
+                  <div class="absolute bottom-2.5 right-3 px-2 py-1 rounded bg-black/80 border border-white/10 text-[10px] font-mono text-brand-amber pointer-events-none flex items-center gap-1.5">
+                    <i data-lucide="layers" class="w-3 h-3"></i>
+                    <span>Node 04: Halation / 35mm LUT</span>
+                  </div>
+                </div>
+
+                <!-- Multi-Track NLE Timeline Visualizer -->
+                <div class="p-4 bg-[#0A0A0F] space-y-2 text-[10px] font-mono select-none">
+                  
+                  <!-- Timeline Ruler -->
+                  <div class="flex justify-between text-slate-500 text-[9px] pb-1 border-b border-slate-800">
+                    <span>00:00:00</span>
+                    <span>00:00:15</span>
+                    <span>00:00:30</span>
+                    <span>00:00:45</span>
+                  </div>
+
+                  <!-- Video Track 3 (Motion Titles & VFX) -->
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 text-slate-400 shrink-0 font-bold text-[9px]">V3</span>
+                    <div class="flex-grow h-6 bg-slate-900/90 rounded border border-slate-800 relative overflow-hidden flex items-center px-2">
+                      <div class="h-4 w-1/4 rounded bg-purple-500/25 border border-purple-500/40 text-purple-300 text-[9px] flex items-center px-1.5 truncate">
+                        Kinetic_Title.mogr
+                      </div>
+                      <div class="h-4 w-1/3 ml-auto rounded bg-purple-500/25 border border-purple-500/40 text-purple-300 text-[9px] flex items-center px-1.5 truncate">
+                        Glow_Halation_VFX
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Video Track 2 (B-Roll & Match Cuts) -->
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 text-slate-400 shrink-0 font-bold text-[9px]">V2</span>
+                    <div class="flex-grow h-6 bg-slate-900/90 rounded border border-slate-800 relative overflow-hidden flex items-center px-1 gap-1">
+                      <div class="h-4 w-1/5 rounded bg-brand-cyan/20 border border-brand-cyan/40 text-cyan-300 text-[9px] flex items-center px-1 truncate">
+                        Macro_Cut_01
+                      </div>
+                      <div class="h-4 w-1/4 rounded bg-brand-cyan/20 border border-brand-cyan/40 text-cyan-300 text-[9px] flex items-center px-1 truncate">
+                        SpeedRamp_Gym
+                      </div>
+                      <div class="h-4 flex-grow rounded bg-brand-cyan/20 border border-brand-cyan/40 text-cyan-300 text-[9px] flex items-center px-1 truncate">
+                        Aerial_B-Roll
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Video Track 1 (A-Roll Raw Sequence) -->
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 text-slate-400 shrink-0 font-bold text-[9px]">V1</span>
+                    <div class="flex-grow h-6 bg-slate-900/90 rounded border border-slate-800 relative overflow-hidden flex items-center px-1 gap-1">
+                      <div class="h-4 w-1/3 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[9px] flex items-center px-1 truncate">
+                        A-Roll_Interview
+                      </div>
+                      <div class="h-4 w-1/3 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[9px] flex items-center px-1 truncate">
+                        Cam_B_Sync
+                      </div>
+                      <div class="h-4 flex-grow rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[9px] flex items-center px-1 truncate">
+                        Outro_Speech
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Audio Track 1 (Dialogue - De-noised) -->
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 text-slate-400 shrink-0 font-bold text-[9px]">A1</span>
+                    <div class="flex-grow h-6 bg-slate-900/90 rounded border border-slate-800 relative overflow-hidden flex items-center px-2">
+                      <div class="h-4 w-full rounded bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[9px] flex items-center justify-between px-2">
+                        <span class="truncate">Dialogue_Master_RX (-14 LUFS)</span>
+                        <div class="flex items-center gap-0.5 h-2">
+                          <span class="w-0.5 h-full bg-emerald-400"></span>
+                          <span class="w-0.5 h-2/3 bg-emerald-400"></span>
+                          <span class="w-0.5 h-4/5 bg-emerald-400"></span>
+                          <span class="w-0.5 h-1/2 bg-emerald-400"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Audio Track 2 (Foley & SFX Risers with Equalizer Animation) -->
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 text-slate-400 shrink-0 font-bold text-[9px]">A2</span>
+                    <div class="flex-grow h-6 bg-slate-900/90 rounded border border-slate-800 relative overflow-hidden flex items-center px-2">
+                      <div class="h-4 w-full rounded bg-pink-500/20 border border-pink-500/30 text-pink-300 text-[9px] flex items-center justify-between px-2">
+                        <span class="truncate">Foley_Whoosh_Risers.wav</span>
+                        <div class="flex items-end gap-1 h-3">
+                          <span class="w-1 bg-pink-400 animate-pulse h-2.5"></span>
+                          <span class="w-1 bg-pink-400 animate-pulse h-1.5"></span>
+                          <span class="w-1 bg-pink-400 animate-pulse h-3"></span>
+                          <span class="w-1 bg-pink-400 animate-pulse h-2"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Footer Console Stats -->
+                <div class="p-3 bg-[#121218] border-t border-brand-border/60 flex items-center justify-between text-[11px] text-slate-400">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded bg-gradient-to-tr from-brand-accent to-purple-600 flex items-center justify-center font-bold text-white text-[10px]">
+                      BP
+                    </div>
+                    <div>
+                      <p class="text-white font-bold text-xs leading-none">Bhuvana Pinninti</p>
+                      <p class="text-[10px] text-brand-accent">Post-Production Suite</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 font-mono text-[10px] text-slate-400">
+                    <span class="px-2 py-0.5 rounded bg-black/60 border border-white/5">ACES Color</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Rendered</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bio Details -->
+            <div class="lg:col-span-7 space-y-6">
+              <span class="text-xs uppercase font-bold tracking-widest text-brand-cyan">Behind The Timeline</span>
+              <h2 class="text-3xl md:text-5xl font-syne font-bold text-white tracking-tight">Turning chaotic footage into cinematic magic.</h2>
+              
+              <div class="space-y-4 text-slate-300 text-sm md:text-base leading-relaxed">
+                <p>
+                  I'm Bhuvana Pinninti, a passionate video editor and colorist with 1 year of hands-on professional experience crafting high-impact video content for brands, creators, indie filmmakers, and digital channels.
+                </p>
+                <p>
+                  My philosophy is simple: <strong class="text-white">great editing isn't just about flashy transitions—it's about emotional resonance and narrative momentum.</strong> Whether I'm building an adrenaline-pumping commercial, a 20-minute investigative YouTube documentary, or a 15-second viral short, I obsess over every keyframe, audio layer, and color node.
+                </p>
+                <p>
+                  I collaborate seamlessly across global timezones using cloud workflows (Frame.io, LucidLink, Notion). I respect deadlines religiously and view revisions as collaborative refinements toward perfection.
+                </p>
+              </div>
+
+              <!-- Quick Highlights / Workflow perks -->
+              <div class="grid grid-cols-2 gap-4 pt-4">
+                <div class="flex items-center gap-3 text-sm text-slate-300">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-accent"></i>
+                  <span>24-48hr First Cut Turnaround</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-300">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-accent"></i>
+                  <span>Frame.io Timecoded Reviews</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-300">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-accent"></i>
+                  <span>Licensed Music & SFX Included</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-300">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-accent"></i>
+                  <span>Full 4K / DCI Export Delivery</span>
+                </div>
+              </div>
+
+              <!-- Download CV / Showreel Links -->
+              <div class="pt-4 flex flex-wrap gap-4">
+                <a href="#contact" class="px-6 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-slate-200 transition-all flex items-center gap-2">
+                  <span>Work With Me</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="resume.html" target="_blank" class="px-6 py-3 rounded-xl bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border hover:border-brand-accent/60 font-semibold text-sm transition-all flex items-center gap-2 group">
+                  <i data-lucide="file-text" class="w-4 h-4 text-brand-accent group-hover:scale-110 transition-transform"></i>
+                  <span>View & Print Resume</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500 group-hover:text-white transition-colors"></i>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS / WHAT CLIENTS SAY -->
+      <section class="py-24 max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-xl mx-auto mb-16">
+          <span class="text-xs uppercase font-bold tracking-widest text-brand-accent block mb-2">Social Proof</span>
+          <h2 class="text-3xl md:text-5xl font-syne font-bold text-white tracking-tight">Client Feedback</h2>
+          <p class="text-slate-400 mt-2 text-sm md:text-base">What creators, creative directors, and producers say about working with Bhuvana.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div class="p-8 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between relative group hover:border-brand-accent/40 transition-all">
+            <div class="space-y-4">
+              <div class="flex text-amber-400 gap-1">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed italic">
+                "Bhuvana is a revelation. She took our raw, unscripted footage and turned it into an award-worthy brand commercial. The sound design alone elevated the entire production 10x."
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-brand-border/60 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-white text-xs">
+                MR
+              </div>
+              <div>
+                <p class="text-white font-syne font-bold text-sm">Marcus Reed</p>
+                <p class="text-xs text-slate-400">Creative Director, Horizon Agency</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between relative group hover:border-brand-cyan/40 transition-all">
+            <div class="space-y-4">
+              <div class="flex text-amber-400 gap-1">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed italic">
+                "Our average view duration skyrocketed by 38% after Bhuvana started editing our YouTube episodes. Her instincts for pacing, narrative hooks, and retention editing are world-class."
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-brand-border/60 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-white text-xs">
+                AK
+              </div>
+              <div>
+                <p class="text-white font-syne font-bold text-sm">Ananya Kapoor</p>
+                <p class="text-xs text-slate-400">YouTube Creator (800K+ Subscribers)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between relative group hover:border-brand-amber/40 transition-all">
+            <div class="space-y-4">
+              <div class="flex text-amber-400 gap-1">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed italic">
+                "Speed, creative communication, and uncompromising quality. Bhuvana hit our tight 48-hour turnarounds without breaking a sweat. We won't work with anyone else."
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-brand-border/60 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-white text-xs">
+                SL
+              </div>
+              <div>
+                <p class="text-white font-syne font-bold text-sm">Sarah Lin</p>
+                <p class="text-xs text-slate-400">Head of Growth, FinTech Labs</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="py-24 bg-brand-card/40 border-t border-brand-border/60 relative">
+        <div class="max-w-3xl mx-auto px-6 text-center space-y-8">
+          <div class="space-y-3">
+            <span class="text-xs uppercase font-bold tracking-widest text-brand-accent">Get in Touch</span>
+            <h2 class="text-3xl md:text-5xl font-syne font-bold text-white tracking-tight">Let's craft your next masterpiece.</h2>
+            <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+              Have an upcoming project, brand commercial, YouTube series, or music video? Let's discuss your timeline, scope, and vision.
+            </p>
+          </div>
+
+          <!-- Direct Contact Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-left">
+            <a href="mailto:bhuvanapinninti5252@gmail.com" class="p-6 rounded-2xl bg-[#0F0F14] border border-brand-border hover:border-brand-accent/60 transition-all flex flex-col justify-between group">
+              <div class="w-10 h-10 rounded-xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-xs text-slate-500 block">Email Directly</span>
+                <span class="text-sm font-semibold text-white group-hover:text-brand-accent transition-colors break-all">bhuvanapinninti5252@gmail.com</span>
+              </div>
+            </a>
+
+            <div class="p-6 rounded-2xl bg-[#0F0F14] border border-brand-border flex flex-col justify-between">
+              <div class="w-10 h-10 rounded-xl bg-brand-cyan/10 border border-brand-cyan/20 flex items-center justify-center text-brand-cyan mb-4">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-xs text-slate-500 block">Location</span>
+                <span class="text-sm font-semibold text-white">Hyderabad, India (Available Worldwide)</span>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-[#0F0F14] border border-brand-border flex flex-col justify-between">
+              <div class="w-10 h-10 rounded-xl bg-brand-amber/10 border border-brand-amber/20 flex items-center justify-center text-brand-amber mb-4">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-xs text-slate-500 block">Turnaround Time</span>
+                <span class="text-sm font-semibold text-white">Typically responds within 4 hours</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Primary CTA Button -->
+          <div class="pt-2">
+            <a href="mailto:bhuvanapinninti5252@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-brand-accent hover:bg-pink-600 text-white font-bold text-sm tracking-wide shadow-xl shadow-brand-accent/25 hover:shadow-brand-accent/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+              <span>Send Me an Email</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-brand-border bg-[#0A0A0D] text-xs text-slate-500">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-accent to-purple-600 flex items-center justify-center font-syne font-bold text-sm text-white">
+            BP
+          </div>
+          <div>
+            <p class="text-slate-300 font-syne font-bold text-sm">Bhuvana Pinninti</p>
+            <p>&copy; 2026 Bhuvana Pinninti. All rights reserved.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="#showreel" class="hover:text-slate-300 transition-colors">Showreel</a>
+          <a href="#projects" class="hover:text-slate-300 transition-colors">Projects</a>
+          <a href="#color-grading" class="hover:text-slate-300 transition-colors">Color Grading</a>
+          <a href="resume.html" target="_blank" class="hover:text-brand-accent text-pink-400 transition-colors">Resume</a>
+          <a href="#contact" class="hover:text-slate-300 transition-colors">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- VIDEO MODAL POPUP -->
+  <div id="videoModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex items-center justify-center p-4 md:p-8 transition-opacity">
+    <div class="relative w-full max-w-4xl bg-brand-card rounded-2xl border border-brand-border overflow-hidden shadow-2xl flex flex-col">
+      <!-- Modal Header -->
+      <div class="p-4 px-6 border-b border-brand-border flex items-center justify-between bg-[#121217]">
+        <div class="flex items-center gap-2.5 truncate pr-4">
+          <span class="w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse"></span>
+          <h4 id="videoModalTitle" class="text-white font-syne font-bold text-base truncate">Video Title</h4>
+        </div>
+        <button onclick="closeVideoModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <!-- Modal Video Body -->
+      <div class="relative w-full flex items-center justify-center bg-black min-h-[320px] max-h-[78vh] overflow-hidden">
+        <video id="videoModalPlayer" class="w-full h-auto max-h-[78vh] object-contain hidden" controls playsinline></video>
+        <iframe id="videoModalIframe" class="w-full aspect-video hidden" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on anchor click
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Project Filter Functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Toggle Active Class
+        filterButtons.forEach(b => {
+          b.classList.remove('active', 'bg-brand-accent', 'text-white', 'shadow-md');
+          b.classList.add('text-slate-400');
+        });
+        btn.classList.add('active', 'bg-brand-accent', 'text-white', 'shadow-md');
+        btn.classList.remove('text-slate-400');
+
+        const category = btn.getAttribute('data-category');
+
+        projectCards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Hover Preview on Project Cards
+    document.querySelectorAll('.video-preview-player').forEach(video => {
+      const card = video.closest('.project-card');
+      if (card) {
+        card.addEventListener('mouseenter', () => {
+          video.play().catch(() => {});
+        });
+        card.addEventListener('mouseleave', () => {
+          video.pause();
+          video.currentTime = 0.5;
+        });
+      }
+    });
+
+    // Interactive Color Grading Before/After Split Slider
+    const sliderContainer = document.getElementById('sliderContainer');
+    const beforeImageWrapper = document.getElementById('beforeImageWrapper');
+    const sliderHandle = document.getElementById('sliderHandle');
+    let isSliding = false;
+
+    function updateSlider(xPos) {
+      const rect = sliderContainer.getBoundingClientRect();
+      let pos = (xPos - rect.left) / rect.width;
+      if (pos < 0) pos = 0;
+      if (pos > 1) pos = 1;
+
+      const percentage = pos * 100;
+      beforeImageWrapper.style.width = `${percentage}%`;
+      sliderHandle.style.left = `${percentage}%`;
+    }
+
+    sliderContainer.addEventListener('mousedown', (e) => {
+      isSliding = true;
+      updateSlider(e.clientX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isSliding = false;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isSliding) return;
+      updateSlider(e.clientX);
+    });
+
+    // Touch support for mobile devices
+    sliderContainer.addEventListener('touchstart', (e) => {
+      isSliding = true;
+      updateSlider(e.touches[0].clientX);
+    });
+
+    window.addEventListener('touchend', () => {
+      isSliding = false;
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isSliding) return;
+      updateSlider(e.touches[0].clientX);
+    });
+
+    // Video Modal Controller (Supports Local MP4 and Embedded Web Players)
+    const videoModal = document.getElementById('videoModal');
+    const videoModalPlayer = document.getElementById('videoModalPlayer');
+    const videoModalIframe = document.getElementById('videoModalIframe');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+
+    function openVideoModal(url, title) {
+      videoModalTitle.textContent = title;
+
+      if (url.endsWith('.mp4') || url.startsWith('videos/')) {
+        // Native HTML5 Video
+        videoModalIframe.classList.add('hidden');
+        videoModalIframe.src = '';
+
+        videoModalPlayer.src = url;
+        videoModalPlayer.classList.remove('hidden');
+        videoModalPlayer.currentTime = 0;
+        videoModalPlayer.play().catch(() => {});
+      } else {
+        // External iframe embed
+        videoModalPlayer.pause();
+        videoModalPlayer.src = '';
+        videoModalPlayer.classList.add('hidden');
+
+        videoModalIframe.src = url;
+        videoModalIframe.classList.remove('hidden');
+      }
+
+      videoModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      videoModal.classList.add('hidden');
+      if (videoModalPlayer) {
+        videoModalPlayer.pause();
+        videoModalPlayer.src = '';
+        videoModalPlayer.classList.add('hidden');
+      }
+      if (videoModalIframe) {
+        videoModalIframe.src = '';
+        videoModalIframe.classList.add('hidden');
+      }
+      document.body.style.overflow = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideoModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !videoModal.classList.contains('hidden')) {
+        closeVideoModal();
+      }
+    });
+
+    // Live NLE Timecode Animation
+    const nleTimecodeEl = document.getElementById('nleTimecode');
+    if (nleTimecodeEl) {
+      let f = 18;
+      let s = 24;
+      setInterval(() => {
+        f++;
+        if (f >= 24) {
+          f = 0;
+          s++;
+          if (s >= 60) s = 0;
+        }
+        nleTimecodeEl.textContent = `00:01:${s < 10 ? '0' + s : s}:${f < 10 ? '0' + f : f}`;
+      }, 41);
+    }
+
+    // Live DaVinci Resolve RGB Parade Scopes Canvas Simulator
+    const scopesCanvas = document.getElementById('scopesCanvas');
+    if (scopesCanvas) {
+      const ctx = scopesCanvas.getContext('2d');
+      let t = 0;
+
+      function resizeCanvas() {
+        const rect = scopesCanvas.getBoundingClientRect();
+        scopesCanvas.width = rect.width * (window.devicePixelRatio || 1);
+        scopesCanvas.height = rect.height * (window.devicePixelRatio || 1);
+        ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function drawScopes() {
+        const w = scopesCanvas.getBoundingClientRect().width;
+        const h = scopesCanvas.getBoundingClientRect().height;
+        if (!w || !h) return;
+
+        ctx.fillStyle = '#06060A';
+        ctx.fillRect(0, 0, w, h);
+
+        // Draw IRE Horizontal Grids
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.lineWidth = 1;
+        const ires = [0.18, 0.36, 0.54, 0.72, 0.88];
+        ires.forEach(pct => {
+          ctx.beginPath();
+          ctx.moveTo(0, h * pct);
+          ctx.lineTo(w, h * pct);
+          ctx.stroke();
+        });
+
+        // 3 Channels: RED, GREEN, BLUE
+        const channels = [
+          { color: '#FF3366', glow: 'rgba(255, 51, 102, 0.4)', offset: 0 },
+          { color: '#00FF99', glow: 'rgba(0, 255, 153, 0.4)', offset: 1.8 },
+          { color: '#00F0FF', glow: 'rgba(0, 240, 255, 0.4)', offset: 3.4 }
+        ];
+
+        const chWidth = (w - 20) / 3;
+
+        channels.forEach((ch, idx) => {
+          const startX = 6 + idx * (chWidth + 4);
+          const endX = startX + chWidth;
+
+          // Draw Channel Divider
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+          ctx.beginPath();
+          ctx.moveTo(startX, 15);
+          ctx.lineTo(startX, h - 15);
+          ctx.stroke();
+
+          // Draw Channel Label
+          ctx.fillStyle = ch.color;
+          ctx.font = 'bold 9px monospace';
+          ctx.fillText(['R - CH', 'G - CH', 'B - CH'][idx], startX + 4, 22);
+
+          // Draw Multi-layer Oscilloscope Waveform
+          ctx.strokeStyle = ch.color;
+          ctx.shadowColor = ch.glow;
+          ctx.shadowBlur = 6;
+          ctx.lineWidth = 1.2;
+
+          for (let layer = 0; layer < 3; layer++) {
+            ctx.beginPath();
+            const baseY = h * 0.52 + (layer - 1) * 14;
+            for (let x = startX + 6; x < endX - 4; x += 3) {
+              const normX = (x - startX) / chWidth;
+              const wave1 = Math.sin(normX * 8 + t * 2.2 + ch.offset + layer) * (h * 0.14);
+              const wave2 = Math.cos(normX * 16 - t * 3.1 + layer) * (h * 0.08);
+              const noise = Math.sin(x * 0.8 + t * 5) * 3;
+              const y = baseY + wave1 + wave2 + noise;
+              if (x === startX + 6) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+          }
+        });
+
+        ctx.shadowBlur = 0;
+        t += 0.035;
+        requestAnimationFrame(drawScopes);
+      }
+      requestAnimationFrame(drawScopes);
+    }
+  </script>
+</body>
+</html>
